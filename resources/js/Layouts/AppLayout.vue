@@ -4,6 +4,7 @@
             <nav
                 class="flex items-center justify-between p-4 max-w-screen-lg mx-auto"
             >
+                <h1>{{ $page.props.user.name }}</h1>
                 <div class="space-x-6">
                     <Link :href="route('home')">Home</Link>
                     <Link :href="route('about')">About</Link>
