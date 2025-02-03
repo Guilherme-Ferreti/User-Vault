@@ -3,7 +3,7 @@ import './bootstrap';
 
 import { createInertiaApp, Head, Link } from '@inertiajs/vue3';
 import { createApp, h } from 'vue';
-import { ZiggyVue } from '../../vendor/tightenco/ziggy'
+import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 import AppLayout from './Layouts/AppLayout.vue';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
@@ -12,7 +12,7 @@ createInertiaApp({
     title: title => (title ? `${title} | ${appName}` : appName),
     resolve: name => {
         const pages = import.meta.glob('./Pages/**/*.vue', { eager: true });
-        const page = pages[`./Pages/${name}.vue`];
+        const page = pages[`./Pages/${name.replaceAll('\\', '/')}.vue`];
 
         page.default.layout = page.default.layout || AppLayout;
 
@@ -28,5 +28,5 @@ createInertiaApp({
     },
     progress: {
         color: '#fff',
-    }
+    },
 });

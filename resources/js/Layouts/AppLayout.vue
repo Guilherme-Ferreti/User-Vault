@@ -1,13 +1,23 @@
 <template>
     <div>
-        <header class="bg-indigo-500 text-white">
-            <nav
-                class="flex items-center justify-between p-4 max-w-screen-lg mx-auto"
-            >
-                <h1>{{ $page.props.user.name }}</h1>
+        <header>
+            <nav>
                 <div class="space-x-6">
-                    <Link :href="route('home')">Home</Link>
-                    <Link :href="route('about')">About</Link>
+                    <Link
+                        :href="route('home')"
+                        class="nav-link"
+                    >
+                        Home
+                    </Link>
+                </div>
+                <div class="space-x-6">
+                    <Link
+                        v-if="!$page.props.auth.is_authenticated"
+                        :href="route('register')"
+                        class="nav-link"
+                    >
+                        Register
+                    </Link>
                 </div>
             </nav>
         </header>

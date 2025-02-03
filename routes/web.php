@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\RegistrationController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', fn () => inertia('Home'))->name('home');
+Route::inertia('/', 'Home')->name('home');
 
-Route::inertia('/about', 'About')->name('about');
+Route::get('/register', [RegistrationController::class, 'create'])->name('register')->middleware('guest');
+Route::post('/register', [RegistrationController::class, 'store'])->name('register.store')->middleware('guest');
