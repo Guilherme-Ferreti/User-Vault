@@ -1,5 +1,6 @@
 <script setup>
     import { useForm } from '@inertiajs/vue3';
+    import TextInput from '../../Components/TextInput.vue';
 
     const form = useForm({
         name: null,
@@ -22,59 +23,48 @@
 
     <div class="w-2/4 mx-auto">
         <form @submit.prevent="submit">
-            <div class="mb-6">
-                <label for="name">Name</label>
-                <input
-                    type="text"
-                    id="name"
-                    v-model="form.name"
-                    required
-                />
-                <small v-if="form.errors.name">
-                    {{ form.errors.name }}
-                </small>
-            </div>
-            <div class="mb-6">
-                <label for="email">E-mail address</label>
-                <input
-                    type="text"
-                    id="email"
-                    v-model="form.email"
-                    required
-                    email
-                />
-                <small v-if="form.errors.email">
-                    {{ form.errors.email }}
-                </small>
-            </div>
-            <div class="mb-6">
-                <label for="password">Password</label>
-                <input
-                    type="password"
-                    id="password"
-                    v-model="form.password"
-                    required
-                />
-                <small v-if="form.errors.password">
-                    {{ form.errors.password }}
-                </small>
-            </div>
-            <div class="mb-6">
-                <label for="name">Password confirmation</label>
-                <input
-                    type="password"
-                    id="password_confirmation"
-                    v-model="form.password_confirmation"
-                    required
-                />
-                <small v-if="form.errors.password_confirmation">
-                    {{ form.errors.password_confirmation }}
-                </small>
-            </div>
+            <TextInput
+                v-model="form.name"
+                :error="form.errors.name"
+                label="Name"
+                type="text"
+                required
+            />
+
+            <TextInput
+                v-model="form.email"
+                :error="form.errors.email"
+                label="Email address"
+                type="email"
+                required
+                email
+            />
+
+            <TextInput
+                v-model="form.password"
+                :error="form.errors.password"
+                label="Password"
+                type="password"
+                required
+            />
+
+            <TextInput
+                v-model="form.password_confirmation"
+                :error="form.errors.password_confirmation"
+                label="Confirm password"
+                type="password"
+                required
+            />
 
             <div>
                 <p class="text-slate-600 mb-2">
-                    Already registered? <Link href="/login">Login</Link>
+                    Already registered?
+                    <Link
+                        href="/login"
+                        class="text-link"
+                    >
+                        Login
+                    </Link>
                 </p>
                 <button
                     type="submit"
