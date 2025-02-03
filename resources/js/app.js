@@ -1,10 +1,10 @@
 import './../css/app.css';
 import './bootstrap';
 
+import AppLayout from '@/Layouts/AppLayout.vue';
 import { createInertiaApp, Head, Link } from '@inertiajs/vue3';
 import { createApp, h } from 'vue';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
-import AppLayout from './Layouts/AppLayout.vue';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 

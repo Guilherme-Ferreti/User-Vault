@@ -18,6 +18,24 @@
                     >
                         Register
                     </Link>
+
+                    <Link
+                        v-if="!$page.props.auth.is_authenticated"
+                        :href="route('login')"
+                        class="nav-link"
+                    >
+                        Login
+                    </Link>
+
+                    <Link
+                        v-if="$page.props.auth.is_authenticated"
+                        :href="route('logout')"
+                        class="nav-link"
+                        method="post"
+                        as="button"
+                    >
+                        Logout
+                    </Link>
                 </div>
             </nav>
         </header>
