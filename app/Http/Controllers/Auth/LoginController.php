@@ -22,7 +22,7 @@ class LoginController extends Controller
     {
         $request->authenticate();
 
-        return to_route('home');
+        return redirect()->intended(route('dashboard'));
     }
 
     public function destroy(Request $request): RedirectResponse

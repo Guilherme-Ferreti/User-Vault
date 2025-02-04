@@ -1,34 +1,29 @@
+<script setup>
+    import NavLink from '@/Components/NavLink.vue';
+</script>
+
 <template>
     <div>
         <header>
             <nav>
                 <div class="space-x-6">
-                    <Link
-                        :href="route('home')"
-                        class="nav-link"
+                    <NavLink
+                        routeName="home"
+                        :is-active="route().current('home')"
+                        >Home</NavLink
                     >
-                        Home
-                    </Link>
                 </div>
-                <div class="space-x-6">
-                    <Link
-                        v-if="!$page.props.auth.is_authenticated"
-                        :href="route('register')"
-                        class="nav-link"
+                <div
+                    v-if="$page.props.auth.is_authenticated"
+                    class="space-x-6"
+                >
+                    <NavLink
+                        routeName="dashboard"
+                        :is-active="route().current('dashboard')"
+                        >Dashboard</NavLink
                     >
-                        Register
-                    </Link>
 
                     <Link
-                        v-if="!$page.props.auth.is_authenticated"
-                        :href="route('login')"
-                        class="nav-link"
-                    >
-                        Login
-                    </Link>
-
-                    <Link
-                        v-if="$page.props.auth.is_authenticated"
                         :href="route('logout')"
                         class="nav-link"
                         method="post"
@@ -36,6 +31,21 @@
                     >
                         Logout
                     </Link>
+                </div>
+                <div
+                    v-else
+                    class="space-x-6"
+                >
+                    <NavLink
+                        routeName="register"
+                        :is-active="route().current('register')"
+                        >Register</NavLink
+                    >
+                    <NavLink
+                        routeName="login"
+                        :is-active="route().current('login')"
+                        >Login</NavLink
+                    >
                 </div>
             </nav>
         </header>
