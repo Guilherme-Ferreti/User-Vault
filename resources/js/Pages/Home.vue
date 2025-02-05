@@ -46,6 +46,7 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Registration Date</th>
+                    <th v-if="$page.props.permissions.users.delete">Delete</th>
                 </tr>
             </thead>
 
@@ -63,6 +64,18 @@
                     <td>{{ user.name }}</td>
                     <td>{{ user.email }}</td>
                     <td>{{ user.registration_date }}</td>
+                    <td
+                        v-if="$page.props.permissions.users.delete"
+                        class="flex justify-center align-center"
+                    >
+                        <Link
+                            as="button"
+                            type="button"
+                            method="delete"
+                            :href="route('users.destroy', { id: user.id })"
+                            class="bg-red-500 w-6 h-6 rounded-full"
+                        ></Link>
+                    </td>
                 </tr>
             </tbody>
         </table>

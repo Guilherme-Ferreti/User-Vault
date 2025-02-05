@@ -44,14 +44,15 @@ class HandleInertiaRequests extends Middleware
                 'is_authenticated' => Auth::check(),
                 'user'             => fn () => $this->sharebleUserData(),
             ],
-            'flash' => [
+            'permissions' => $this->permissions(),
+            'flash'       => [
                 'message' => $request->session()->get('message'),
             ],
         ]);
     }
 
     /**
-     * The user data that can be safely shared to the frontend.
+     * Get the user data that can be safely shared to the frontend.
      */
     private function sharebleUserData(): ?array
     {
@@ -66,6 +67,18 @@ class HandleInertiaRequests extends Middleware
             'id'     => $user->id,
             'name'   => $user->name,
             'avatar' => $user->avatar(),
+        ];
+    }
+
+    /**
+     * Get the authenticated user permissions.
+     */
+    public function permissions(): array
+    {
+        return [
+            'users' => [
+                'delete' => Auth::user()?->can('delete', User::class),
+            ],
         ];
     }
 }
