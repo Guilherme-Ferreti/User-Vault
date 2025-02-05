@@ -44,6 +44,9 @@ class HandleInertiaRequests extends Middleware
                 'is_authenticated' => Auth::check(),
                 'user'             => fn () => $this->sharebleUserData(),
             ],
+            'flash' => [
+                'message' => $request->session()->get('message'),
+            ],
         ]);
     }
 

@@ -31,6 +31,9 @@ class RegistrationController extends Controller
 
         Auth::login($user);
 
-        return to_route('home');
+        return to_route('dashboard')->with('message', [
+            'type'    => 'success',
+            'content' => 'Welcome to the <b>UserVault</b> app!',
+        ]);
     }
 }
