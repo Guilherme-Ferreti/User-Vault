@@ -1,13 +1,43 @@
 <script setup>
     import PaginationLinks from '@/Components/PaginationLinks.vue';
+    import { router } from '@inertiajs/vue3';
+    import { debounce } from 'lodash';
+    import { ref, watch } from 'vue';
 
-    defineProps({
+    const props = defineProps({
         users: Object,
+        searchTerm: String,
     });
+
+    const search = ref(props.searchTerm);
+
+    watch(
+        search,
+        debounce(
+            query =>
+                router.get(
+                    route('home'),
+                    { search: query },
+                    { preserveState: true },
+                ),
+            500,
+        ),
+    );
 </script>
 
 <template>
     <Head title="Homepage" />
+    <div>
+        <div class="flex justify-end mb-4">
+            <div class="w-1/4">
+                <input
+                    type="search"
+                    placeholder="Search"
+                    v-model="search"
+                />
+            </div>
+        </div>
+    </div>
     <div>
         <table>
             <thead>
