@@ -15,8 +15,13 @@
                 </div>
                 <div
                     v-if="$page.props.auth.is_authenticated"
-                    class="space-x-6"
+                    class="space-x-6 flex"
                 >
+                    <img
+                        class="avatar"
+                        :src="$page.props.auth.user.avatar"
+                        alt=""
+                    />
                     <NavLink
                         routeName="dashboard"
                         :is-active="route().current('dashboard')"

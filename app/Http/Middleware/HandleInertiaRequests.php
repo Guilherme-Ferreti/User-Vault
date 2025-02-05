@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Middleware;
@@ -41,8 +42,27 @@ class HandleInertiaRequests extends Middleware
         return array_merge(parent::share($request), [
             'auth' => [
                 'is_authenticated' => Auth::check(),
-                'user'             => fn () => Auth::check() ? Auth::user()->only('id', 'name') : null,
+                'user'             => fn () => $this->sharebleUserData(),
             ],
         ]);
+    }
+
+    /**
+     * The user data that can be safely shared to the frontend.
+     */
+    private function sharebleUserData(): ?array
+    {
+        if (Auth::guest()) {
+            return [];
+        }
+
+        /** @var User $user */
+        $user = Auth::user();
+
+        return [
+            'id'     => $user->id,
+            'name'   => $user->name,
+            'avatar' => $user->avatar(),
+        ];
     }
 }
